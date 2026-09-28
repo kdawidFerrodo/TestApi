@@ -1,3 +1,5 @@
+using Domain.Authorization;
+using FerrodoERPApi.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FerrodoERPApi.Controllers
@@ -19,6 +21,7 @@ namespace FerrodoERPApi.Controllers
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
+        [HasPermission(Permissions.Weather.Read)]
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
