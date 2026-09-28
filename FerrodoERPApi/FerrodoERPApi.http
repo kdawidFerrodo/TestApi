@@ -1,6 +1,38 @@
 @FerrodoERPApi_HostAddress = http://localhost:5098
 
+### Logowanie - zwraca accessToken i refreshToken
+# @name login
+POST {{FerrodoERPApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+  "userName": "admin",
+  "password": "haslo"
+}
+
+### Endpoint chroniony uprawnieniem weather.read
 GET {{FerrodoERPApi_HostAddress}}/weatherforecast/
 Accept: application/json
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+### Dane zalogowanego użytkownika
+GET {{FerrodoERPApi_HostAddress}}/api/auth/me
+Authorization: Bearer {{login.response.body.$.accessToken}}
+
+### Odświeżenie tokenów (stary refresh token przestaje działać)
+POST {{FerrodoERPApi_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{login.response.body.$.refreshToken}}"
+}
+
+### Wylogowanie bieżącej sesji
+POST {{FerrodoERPApi_HostAddress}}/api/auth/logout
+Content-Type: application/json
+
+{
+  "refreshToken": "{{login.response.body.$.refreshToken}}"
+}
 
 ###
