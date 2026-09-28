@@ -1,0 +1,6 @@
+@FerrodoERPApi_HostAddress = http://localhost:5098
+
+GET {{FerrodoERPApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
